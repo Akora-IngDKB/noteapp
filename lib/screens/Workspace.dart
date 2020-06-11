@@ -16,7 +16,6 @@ class _WorkSpaceState extends State<WorkSpace> {
   @override
   Widget build(BuildContext context) {
     final notesProvider = Provider.of<NotesProvider>(context);
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(
         FocusNode(),
