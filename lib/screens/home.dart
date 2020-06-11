@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:note/widgets/HomeNoteitem.dart';
-
 import 'Workspace.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -35,10 +33,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           color: Theme.of(context).primaryColor),
                     ),
                   ),
-                 Padding(
-                   padding: const EdgeInsets.only(right: 15.0),
-                   child: Text('10 notes'),
-                 ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Text('10 notes'),
+                  ),
                 ],
               ),
               Padding(
@@ -65,9 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Container(
-                height: 600,
+                height: 1000,
                 child: GridView.builder(
                   primary: false,
                   shrinkWrap: false,
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
-                  itemCount: 5,
+                  itemCount: 10,
                   itemBuilder: (context, index) {
                     return HomeNoteItem();
                   },
