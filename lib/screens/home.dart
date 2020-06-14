@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:note/providers/NotesProvider.dart';
 import 'package:note/widgets/HomeNoteitem.dart';
+import 'package:provider/provider.dart';
 import 'Workspace.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+ 
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+NotesProvider get provider{
+  return Provider.of<NotesProvider>(context);
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,20 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisSpacing: 10),
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return HomeNoteItem();
+                    return HomeNoteItem( note:  , );
                   },
                 ),
               ),
             ],
           ),
         ),
-        // child: Column(
-
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: <Widget>[
-
-        //   ],
-        // ),
+      
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).buttonColor,
