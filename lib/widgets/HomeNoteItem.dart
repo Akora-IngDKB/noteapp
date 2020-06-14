@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:notesapp/models/Note.dart';
+import 'package:note/models/Note.dart';
 
 class HomeNoteItem extends StatelessWidget {
-  //final Note note;
-  //const HomeNoteItem({@required this.note});
+  final Note note;
+  const HomeNoteItem({@required this.note});
 
   // String formatText(String t) {
   //   final chunks = t?.split("\n");
@@ -26,7 +26,7 @@ class HomeNoteItem extends StatelessWidget {
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
-        border: Border.all(color:Theme.of(context).disabledColor),
+        border: Border.all(color: Theme.of(context).disabledColor),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -35,7 +35,7 @@ class HomeNoteItem extends StatelessWidget {
           //if ((note.title != null) && (note.title.isNotEmpty)) ...[
           Text(
             //"${note.title}",
-            "Title",
+            note.title,
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
@@ -53,10 +53,11 @@ class HomeNoteItem extends StatelessWidget {
           //  if ((note.text != null) && (note.text.isNotEmpty)) ...[
           Text(
             //  "${formatText(note.text)}",
-            "Text tile is the best thing that ever happened to me aswertugahd bro " +
-                "Text tile is the best thing that ever happened to me aswertugahd bro " +
-                "Text tile is the best thing that ever ha" +
-                " Title, tile is the best thing that ever happened to me...",
+            // "Text tile is the best thing that ever happened to me aswertugahd bro " +
+            //     "Text tile is the best thing that ever happened to me aswertugahd bro " +
+            //     "Text tile is the best thing that ever ha" +
+            //     " Title, tile is the best thing that ever happened to me...",
+            note.text,
 
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
