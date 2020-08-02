@@ -1,50 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:note/providers/NotesProvider.dart';
-import 'package:note/widgets/HomeNoteitem.dart';
 import 'package:provider/provider.dart';
 import 'Workspace.dart';
 
 class MyHomePage extends StatefulWidget {
- 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-NotesProvider get provider{
-  return Provider.of<NotesProvider>(context);
-}
+  NotesProvider get provider {
+    return Provider.of<NotesProvider>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0,
+        title: Text(
+          'Notes',
+          style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColor),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20, right: 20),
+            child: Text(
+              '10 notes',
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+          )
+        ],
+      ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                    child: Text(
-                      'Notes',
-                      style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: Text('10 notes'),
-                  ),
-                ],
-              ),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 30),
+                padding: EdgeInsets.only(left: 20, right: 30, top: 20),
                 child: TextField(
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
@@ -70,27 +68,26 @@ NotesProvider get provider{
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 1000,
-                child: GridView.builder(
-                  primary: false,
-                  shrinkWrap: false,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(20),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return HomeNoteItem( note:  , );
-                  },
-                ),
-              ),
+              // Container(
+              //   height: 1000,
+              //   child: GridView.builder(
+              //     primary: false,
+              //     shrinkWrap: false,
+              //     physics: NeverScrollableScrollPhysics(),
+              //     padding: EdgeInsets.all(20),
+              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 2,
+              //         crossAxisSpacing: 10,
+              //         mainAxisSpacing: 10),
+              //     itemCount: 10,
+              //     itemBuilder: (context, index) {
+              //       return HomeNoteItem( );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),
-      
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).buttonColor,
