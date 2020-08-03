@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note/providers/NotesProvider.dart';
-import 'package:provider/provider.dart';
-import 'Workspace.dart';
+import 'package:note/screens/Workspace.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -9,10 +7,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  NotesProvider get provider {
-    return Provider.of<NotesProvider>(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,23 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height: 10,
               ),
-              // Container(
-              //   height: 1000,
-              //   child: GridView.builder(
-              //     primary: false,
-              //     shrinkWrap: false,
-              //     physics: NeverScrollableScrollPhysics(),
-              //     padding: EdgeInsets.all(20),
-              //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 2,
-              //         crossAxisSpacing: 10,
-              //         mainAxisSpacing: 10),
-              //     itemCount: 10,
-              //     itemBuilder: (context, index) {
-              //       return HomeNoteItem( );
-              //     },
-              //   ),
-              // ),
+              Container(
+                height: 300,
+                width: 300,
+                child: GridView.count(
+                    primary: false, crossAxisCount: 2, children: []),
+              )
             ],
           ),
         ),
