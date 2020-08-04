@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Workspace.dart';
+import 'package:note/widgets/HomeNoteItem.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -8,6 +11,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  NotesProvider get provider {
+    return Provider.of<NotesProvider>(context);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -65,9 +72,16 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 height: 300,
                 width: 300,
-                child: GridView.count(
-                    primary: false, crossAxisCount: 2, children: []),
-              )
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10),
+                    itemCount: provider.notes.length,
+                    itemBuilder: (context, index) {
+                      return HomeNoteItem(note: provider.notes[index]);
+                    }),
+              ),
             ],
           ),
         ),
