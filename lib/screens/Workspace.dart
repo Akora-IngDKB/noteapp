@@ -10,9 +10,14 @@ class WorkSpace extends StatefulWidget {
 
 class _WorkSpaceState extends State<WorkSpace> {
   bool active = false;
+  Note note;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController textController = TextEditingController();
+
+  NotesProvider get provider {
+    return Provider.of<NotesProvider>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +66,12 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
+                setState(() {
+                  textController.text = note.title;
+                  titleController.text = note.text;
+
+                  provider.addNote(note);
+                });
                 Navigator.pop(context);
               },
             ),
