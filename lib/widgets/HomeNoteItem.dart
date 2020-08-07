@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/Note.dart';
 
-class HomeNoteItem extends StatelessWidget {
+class HomeNoteItem extends StatefulWidget {
   final Note note;
   const HomeNoteItem({@required this.note});
 
+  @override
+  _HomeNoteItemState createState() => _HomeNoteItemState();
+}
+
+class _HomeNoteItemState extends State<HomeNoteItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +24,7 @@ class HomeNoteItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'note.title',
+            widget.note.title,
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
@@ -28,7 +33,7 @@ class HomeNoteItem extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'note.text',
+            widget.note.text,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 height: 1.2,
