@@ -78,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10),
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15),
                     itemCount: provider.notes.length,
                     itemBuilder: (context, index) {
                       return HomeNoteItem(note: provider.notes[index]);
