@@ -8,8 +8,8 @@ class HomeNoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(10),
       height: double.infinity,
-      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
         border: Border.all(color: Theme.of(context).disabledColor),
@@ -19,7 +19,7 @@ class HomeNoteItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            note.title,
+            'note.title',
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
@@ -28,7 +28,7 @@ class HomeNoteItem extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            note.text,
+            'note.text',
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 height: 1.2,
