@@ -4,8 +4,8 @@ class Note {
 //String date;
 
   Note({
-    this.title,
-    this.text,
+    this.title = '',
+    this.text = '',
     //this.date,
   });
 }
