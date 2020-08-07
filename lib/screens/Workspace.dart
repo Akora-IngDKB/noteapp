@@ -9,14 +9,27 @@ class WorkSpace extends StatefulWidget {
 }
 
 class _WorkSpaceState extends State<WorkSpace> {
-  bool active = false;
+  bool isBold = false;
+  bool isItalic = false;
+  bool isUnderlined = false;
   Note note;
 
   TextEditingController titleController = TextEditingController();
   TextEditingController textController = TextEditingController();
 
   NotesProvider get provider {
-    return Provider.of<NotesProvider>(context);
+    return Provider.of<NotesProvider>(context, listen: false);
+  }
+
+  void addNote() {}
+
+  @override
+  void initState() {
+    note = Note(
+      title: titleController.text,
+      text: textController.text,
+    );
+    super.initState();
   }
 
   @override
@@ -47,13 +60,14 @@ class _WorkSpaceState extends State<WorkSpace> {
                   color: Colors.black,
                   onPressed: () {})),
           Tooltip(
-              message: 'Delete',
-              child: IconButton(
-                  icon: Icon(Icons.delete),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  })),
+            message: 'Delete',
+            child: IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: FlatButton(
@@ -66,12 +80,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                setState(() {
-                  textController.text = note.title;
-                  titleController.text = note.text;
-
-                  provider.addNote(note);
-                });
+                provider.addNote(note);
                 Navigator.pop(context);
               },
             ),
@@ -82,6 +91,11 @@ class _WorkSpaceState extends State<WorkSpace> {
         child: Column(
           children: <Widget>[
             TextField(
+              onChanged: (val) {
+                // setState(() {
+                //   note.title = val;
+                // });
+              },
               controller: titleController,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
@@ -99,6 +113,11 @@ class _WorkSpaceState extends State<WorkSpace> {
               ),
             ),
             TextField(
+              onChanged: (val) {
+                // setState(() {
+                //   note.text = val;
+                // });
+              },
               controller: textController,
               style: TextStyle(color: Theme.of(context).primaryColor),
               keyboardType: TextInputType.multiline,
@@ -115,67 +134,113 @@ class _WorkSpaceState extends State<WorkSpace> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          items: [
-            BottomNavigationBarItem(
-              title: Text(''),
-              icon: IconButton(
+      bottomSheet: Container(
+        height: 100,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isBold ? Colors.blue : Colors.white,
+              ),
+              child: IconButton(
                   icon: Image(
                     width: 15,
                     image: AssetImage(
                       'images/bold.png',
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color:
+                        isBold ? Colors.white : Theme.of(context).primaryColor,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    setState(() {
+                      isBold = !isBold;
+                    });
+                  }),
             ),
-            BottomNavigationBarItem(
-              title: Text(''),
-              icon: IconButton(
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isItalic ? Colors.blue : Colors.white,
+              ),
+              child: IconButton(
                   icon: Image(
                     width: 15,
                     image: AssetImage(
                       'images/italic.png',
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color: isItalic
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
                   ),
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {}),
+                  onPressed: () {
+                    setState(() {
+                      isItalic = !isItalic;
+                    });
+                  }),
             ),
-            BottomNavigationBarItem(
-              title: Text(''),
-              icon: IconButton(
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isUnderlined ? Colors.blue : Colors.white,
+              ),
+              child: IconButton(
                   icon: Image(
                     width: 15,
                     image: AssetImage(
                       'images/underline.png',
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color: isUnderlined
+                        ? Colors.white
+                        : Theme.of(context).primaryColor,
                   ),
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {}),
-            ),
-            BottomNavigationBarItem(
-              title: Text(''),
-              icon: IconButton(
-                  icon: Image(
-                    width: 20,
-                    image: AssetImage(
-                      'images/microphone.png',
-                    ),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  color: active ? Colors.blue : Theme.of(context).primaryColor,
                   onPressed: () {
                     setState(() {
-                      active = !active;
+                      isUnderlined = !isUnderlined;
                     });
                   }),
             ),
-          ]),
+            IconButton(
+                icon: Image(
+                  width: 20,
+                  image: AssetImage(
+                    'images/microphone.png',
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {}),
+//
+          ],
+        ),
+      ),
     );
+
+//BottomNavigationBar(
+//           type: BottomNavigationBarType.fixed,
+//           elevation: 0,
+//           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+//           items: [
+//             BottomNavigationBarItem(
+//               title: Text(''),
+//               icon:
+//             ),
+//             BottomNavigationBarItem(
+//               title: Text(''),
+//               icon:
+//             ),
+//             BottomNavigationBarItem(
+//               title: Text(''),
+//               icon:
+//             BottomNavigationBarItem(
+//               title: Text(''),
+//               icon:      ),
+//           ]),
+//     );
+//   }
   }
 }
