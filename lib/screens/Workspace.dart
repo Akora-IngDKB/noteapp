@@ -4,6 +4,10 @@ import 'package:note/providers/NotesProvider.dart';
 import 'package:provider/provider.dart';
 
 class WorkSpace extends StatefulWidget {
+  final Note existingNote;
+
+  WorkSpace({this.existingNote});
+
   @override
   _WorkSpaceState createState() => _WorkSpaceState();
 }
@@ -14,15 +18,18 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isUnderlined = false;
   Note note = Note();
 
+  @override
+  void initState() {
+    if (widget.existingNote != null) note = widget.existingNote;
+    super.initState();
+  }
+
   NotesProvider get provider {
     return Provider.of<NotesProvider>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController titleController = TextEditingController();
-    TextEditingController textController = TextEditingController();
-
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -55,6 +62,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
+                  provider.deleteNote(note);
                   Navigator.pop(context);
                 }),
           ),
@@ -70,9 +78,13 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                note.title = titleController.text;
-                note.text = textController.text;
-                provider.addNote(note);
+                // note.title = titleController.text;
+                // note.text = textController.text;
+                if (widget.existingNote != null) {
+                  provider.update(widget.existingNote, note);
+                } else {
+                  provider.addNote(note);
+                }
                 Navigator.pop(context);
               },
             ),
@@ -83,7 +95,10 @@ class _WorkSpaceState extends State<WorkSpace> {
         child: Column(
           children: <Widget>[
             TextField(
-              controller: titleController,
+              onChanged: (val) {
+                note.title = val;
+              },
+              controller: TextEditingController(text: note.title),
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 25,
@@ -97,7 +112,10 @@ class _WorkSpaceState extends State<WorkSpace> {
               ),
             ),
             TextField(
-              controller: textController,
+              onChanged: (val) {
+                note.text = val;
+              },
+              controller: TextEditingController(text: note.text),
               style: TextStyle(color: Theme.of(context).primaryColor),
               keyboardType: TextInputType.multiline,
               maxLines: null,
