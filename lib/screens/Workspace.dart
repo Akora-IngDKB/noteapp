@@ -116,7 +116,7 @@ class _WorkSpaceState extends State<WorkSpace> {
         ),
       ),
       bottomSheet: Container(
-        height: 100,
+        height: 50,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
