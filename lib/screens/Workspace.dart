@@ -21,16 +21,7 @@ class _WorkSpaceState extends State<WorkSpace> {
     return Provider.of<NotesProvider>(context, listen: false);
   }
 
-  void addNote() {}
-
-  @override
-  void initState() {
-    note = Note(
-      title: titleController.text,
-      text: textController.text,
-    );
-    super.initState();
-  }
+  //void addNote() {}
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +71,10 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
+                note.title = titleController.text;
+                note.text = textController.text;
                 provider.addNote(note);
+
                 Navigator.pop(context);
               },
             ),
