@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Workspace.dart';
 import 'package:note/widgets/HomeNoteItem.dart';
@@ -13,6 +14,8 @@ class _MyHomePageState extends State<MyHomePage> {
   NotesProvider get provider {
     return Provider.of<NotesProvider>(context);
   }
+
+  Note note;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
             child: Text(
-              '10 notes',
+              '${provider.notes.length} notes',
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
           )
@@ -69,10 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 300,
-                width: 300,
+              Padding(
+                padding: const EdgeInsets.all(30),
                 child: GridView.builder(
+                    shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
