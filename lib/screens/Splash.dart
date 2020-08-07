@@ -33,7 +33,7 @@ class _SplashState extends State<Splash> {
         child: TweenAnimationBuilder(
           curve: Curves.ease,
           tween: Tween<double>(begin: 2, end: endSize),
-          duration: Duration(milliseconds: 1500),
+          duration: Duration(milliseconds: 200),
           builder: (context, size, child) {
             return Transform.scale(scale: size, child: child);
           },
