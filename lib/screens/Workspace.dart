@@ -12,19 +12,17 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isBold = false;
   bool isItalic = false;
   bool isUnderlined = false;
-  Note note;
-
-  TextEditingController titleController = TextEditingController();
-  TextEditingController textController = TextEditingController();
+  Note note = Note();
 
   NotesProvider get provider {
     return Provider.of<NotesProvider>(context, listen: false);
   }
 
-  //void addNote() {}
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController titleController = TextEditingController();
+    TextEditingController textController = TextEditingController();
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -42,14 +40,15 @@ class _WorkSpaceState extends State<WorkSpace> {
         ),
         actions: <Widget>[
           Tooltip(
-              message: 'Pick color',
-              child: IconButton(
-                  icon: Image(
-                    width: 20,
-                    image: AssetImage('images/color-wheel.png'),
-                  ),
-                  color: Colors.black,
-                  onPressed: () {})),
+            message: 'Pick color',
+            child: IconButton(
+                icon: Image(
+                  width: 20,
+                  image: AssetImage('images/color-wheel.png'),
+                ),
+                color: Colors.black,
+                onPressed: () {}),
+          ),
           Tooltip(
             message: 'Delete',
             child: IconButton(
@@ -63,7 +62,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             padding: EdgeInsets.all(8.0),
             child: FlatButton(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(8),
               ),
               color: Theme.of(context).buttonColor,
               child: Text(
@@ -74,7 +73,6 @@ class _WorkSpaceState extends State<WorkSpace> {
                 note.title = titleController.text;
                 note.text = textController.text;
                 provider.addNote(note);
-
                 Navigator.pop(context);
               },
             ),
@@ -85,11 +83,6 @@ class _WorkSpaceState extends State<WorkSpace> {
         child: Column(
           children: <Widget>[
             TextField(
-              onChanged: (val) {
-                // setState(() {
-                //   note.title = val;
-                // });
-              },
               controller: titleController,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
@@ -98,20 +91,12 @@ class _WorkSpaceState extends State<WorkSpace> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 hintText: 'Title',
-                hintStyle: TextStyle(
-                  fontSize: 25,
-                  color: Theme.of(context).primaryColor,
-                ),
+                hintStyle: TextStyle(fontSize: 20, color: Colors.grey),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
               ),
             ),
             TextField(
-              onChanged: (val) {
-                // setState(() {
-                //   note.text = val;
-                // });
-              },
               controller: textController,
               style: TextStyle(color: Theme.of(context).primaryColor),
               keyboardType: TextInputType.multiline,
@@ -120,7 +105,9 @@ class _WorkSpaceState extends State<WorkSpace> {
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 hintText: 'Type here',
                 hintStyle: TextStyle(
-                    fontSize: 20, color: Theme.of(context).primaryColor),
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
               ),
@@ -208,33 +195,9 @@ class _WorkSpaceState extends State<WorkSpace> {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {}),
-//
           ],
         ),
       ),
     );
-
-//BottomNavigationBar(
-//           type: BottomNavigationBarType.fixed,
-//           elevation: 0,
-//           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-//           items: [
-//             BottomNavigationBarItem(
-//               title: Text(''),
-//               icon:
-//             ),
-//             BottomNavigationBarItem(
-//               title: Text(''),
-//               icon:
-//             ),
-//             BottomNavigationBarItem(
-//               title: Text(''),
-//               icon:
-//             BottomNavigationBarItem(
-//               title: Text(''),
-//               icon:      ),
-//           ]),
-//     );
-//   }
   }
 }
