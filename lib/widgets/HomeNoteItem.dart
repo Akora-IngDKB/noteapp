@@ -38,7 +38,7 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
             maxLines: 6,
             style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                height: 1.2,
+                height: 1.3,
                 fontSize: 13),
           ),
         ],
