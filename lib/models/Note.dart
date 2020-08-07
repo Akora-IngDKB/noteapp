@@ -1,7 +1,7 @@
 class Note {
   String title;
   String text;
- // String date;
+  //String date;
 
   Note({
     this.title,
