@@ -15,4 +15,10 @@ class NotesProvider extends BaseProvider {
     _notesList.remove(n);
     notifyListeners();
   }
+
+  void update(Note newNote, Note oldNote) {
+    final index = _notesList.indexWhere((o) => o == oldNote);
+    _notesList[index] = newNote;
+    notifyListeners();
+  }
 }
