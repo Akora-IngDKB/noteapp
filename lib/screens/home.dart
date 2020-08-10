@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.edit),
       ),
     );
   }
