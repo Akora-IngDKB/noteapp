@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:note/providers/BaseProvider.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Splash.dart';
-
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'MyNote',
         darkTheme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
           primaryColor: Colors.white,
