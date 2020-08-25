@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
+import 'package:note/screens/home.dart';
 import 'package:provider/provider.dart';
 
 class WorkSpace extends StatefulWidget {
@@ -26,6 +27,31 @@ class _WorkSpaceState extends State<WorkSpace> {
 
   NotesProvider get provider {
     return Provider.of<NotesProvider>(context, listen: false);
+  }
+
+  _showDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Do you want to delete this note?'),
+        actions: [
+          FlatButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No'),
+          ),
+          FlatButton(
+            onPressed: () {
+              provider.deleteNote(note);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => MyHomePage()));
+            },
+            child: Text('Delete'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -62,8 +88,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
-                  provider.deleteNote(note);
-                  Navigator.pop(context);
+                  _showDialog();
                 }),
           ),
           Padding(
@@ -78,8 +103,6 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                // note.title = titleController.text;
-                // note.text = textController.text;
                 if (widget.existingNote != null) {
                   provider.update(widget.existingNote, note);
                 } else {
@@ -134,15 +157,19 @@ class _WorkSpaceState extends State<WorkSpace> {
         ),
       ),
       bottomSheet: Container(
-        height: 50,
+        padding: EdgeInsets.only(bottom: 10, top: 5),
+        height: 60,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
+              height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isBold ? Colors.blue : Colors.white,
+                color: isBold
+                    ? Colors.blue
+                    : Theme.of(context).scaffoldBackgroundColor,
               ),
               child: IconButton(
                   icon: Image(
@@ -160,9 +187,12 @@ class _WorkSpaceState extends State<WorkSpace> {
                   }),
             ),
             Container(
+              height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isItalic ? Colors.blue : Colors.white,
+                color: isItalic
+                    ? Colors.blue
+                    : Theme.of(context).scaffoldBackgroundColor,
               ),
               child: IconButton(
                   icon: Image(
@@ -182,9 +212,12 @@ class _WorkSpaceState extends State<WorkSpace> {
                   }),
             ),
             Container(
+              height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isUnderlined ? Colors.blue : Colors.white,
+                color: isUnderlined
+                    ? Colors.blue
+                    : Theme.of(context).scaffoldBackgroundColor,
               ),
               child: IconButton(
                   icon: Image(
