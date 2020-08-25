@@ -21,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Text(
@@ -42,51 +43,63 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 20, right: 30, top: 20),
-                child: TextField(
-                  decoration: InputDecoration(
-                    disabledBorder: InputBorder.none,
-                    filled: true,
-                    fillColor: Theme.of(context).unselectedWidgetColor,
-                    contentPadding: EdgeInsets.only(left: 20),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Icon(Icons.search, color: Colors.grey, size: 15),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: 'Search notes',
-                    hintStyle: TextStyle(
-                      fontSize: 17,
-                      color: Colors.grey,
-                    ),
+          child: provider.notes.length > 0
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 30, top: 20),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            disabledBorder: InputBorder.none,
+                            filled: true,
+                            fillColor: Theme.of(context).unselectedWidgetColor,
+                            contentPadding: EdgeInsets.only(left: 20),
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Icon(Icons.search,
+                                  color: Colors.grey, size: 15),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: 'Search notes',
+                            hintStyle: TextStyle(
+                              fontSize: 17,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 15,
+                                    crossAxisSpacing: 15),
+                            itemCount: provider.notes.length,
+                            itemBuilder: (context, index) {
+                              return HomeNoteItem(note: provider.notes[index]);
+                            }),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(30),
-                child: GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15),
-                    itemCount: provider.notes.length,
-                    itemBuilder: (context, index) {
-                      return HomeNoteItem(note: provider.notes[index]);
-                    }),
-              ),
-            ],
-          ),
-        ),
-      ),
+                )
+              : Center(
+                  child: Text(
+                    'No notes yet',
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.grey //.of(context).primaryColor,
+                        ),
+                  ),
+                )),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).buttonColor,
         onPressed: () {
