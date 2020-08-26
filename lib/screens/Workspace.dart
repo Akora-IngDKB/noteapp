@@ -44,8 +44,8 @@ class _WorkSpaceState extends State<WorkSpace> {
           FlatButton(
             onPressed: () {
               provider.deleteNote(note);
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (_) => MyHomePage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
             },
             child: Text('Delete'),
           ),
