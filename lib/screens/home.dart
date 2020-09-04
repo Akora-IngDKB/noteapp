@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
+import 'package:note/screens/Search.dart';
 import 'package:note/screens/Workspace.dart';
 import 'package:note/widgets/HomeNoteItem.dart';
 import 'package:provider/provider.dart';
@@ -49,26 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(left: 20, right: 30, top: 20),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            disabledBorder: InputBorder.none,
-                            filled: true,
-                            fillColor: Theme.of(context).unselectedWidgetColor,
-                            contentPadding: EdgeInsets.only(left: 20),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Icon(Icons.search,
-                                  color: Colors.grey, size: 15),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: 'Search notes',
-                            hintStyle: TextStyle(
-                              fontSize: 17,
-                              color: Colors.grey,
-                            ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchPage()));
+                          },
+                          child: Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).unselectedWidgetColor,
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                         ),
                       ),
