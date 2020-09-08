@@ -12,15 +12,25 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() => endSize = 1000);
-      Future.delayed(Duration(milliseconds: 300), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MyHomePage()),
+    Future.delayed(
+      Duration(seconds: 2),
+      () {
+        setState(() => endSize = 1000);
+        Future.delayed(
+          Duration(milliseconds: 300),
+          () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return MyHomePage();
+                },
+              ),
+            );
+          },
         );
-      });
-    });
+      },
+    );
   }
 
   @override
