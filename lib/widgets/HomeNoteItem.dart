@@ -4,7 +4,8 @@ import 'package:note/screens/Workspace.dart';
 
 class HomeNoteItem extends StatefulWidget {
   final Note note;
-  const HomeNoteItem({@required this.note});
+  final int index;
+  const HomeNoteItem({@required this.note, @required this.index});
 
   @override
   _HomeNoteItemState createState() => _HomeNoteItemState();
@@ -22,9 +23,9 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
           ),
         );
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 1500),
         padding: EdgeInsets.all(10),
-        height: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).unselectedWidgetColor.withOpacity(0.3),
           border: Border.all(color: Theme.of(context).disabledColor),
@@ -45,7 +46,7 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
             Text(
               widget.note.text,
               overflow: TextOverflow.ellipsis,
-              maxLines: 6,
+              maxLines: widget.index.isOdd ? 5 : 8,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   height: 1.3,
