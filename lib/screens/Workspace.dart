@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
@@ -17,7 +19,17 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isBold = false;
   bool isItalic = false;
   bool isUnderlined = false;
+  bool isRecording = false;
   Note note = Note();
+
+  List colors = [
+    Colors.white,
+    Colors.green,
+    Colors.yellow,
+  ];
+  int index = 0;
+
+  Random random = Random();
 
   @override
   void initState() {
@@ -75,12 +87,17 @@ class _WorkSpaceState extends State<WorkSpace> {
           Tooltip(
             message: 'Pick color',
             child: IconButton(
-                icon: Image(
-                  width: 20,
-                  image: AssetImage('images/color-wheel.png'),
-                ),
-                color: Colors.black,
-                onPressed: () {}),
+              icon: Image(
+                width: 20,
+                image: AssetImage('images/color-wheel.png'),
+              ),
+              color: Colors.black,
+              onPressed: () {
+                setState(() {
+                  index = random.nextInt(3);
+                });
+              },
+            ),
           ),
           Tooltip(
             message: 'Delete',
@@ -143,6 +160,8 @@ class _WorkSpaceState extends State<WorkSpace> {
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
+                // filled: true,
+                // fillColor: colors[index],
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 hintText: 'Type here',
                 hintStyle: TextStyle(
@@ -236,16 +255,31 @@ class _WorkSpaceState extends State<WorkSpace> {
                     });
                   }),
             ),
-            IconButton(
-                icon: Image(
-                  width: 20,
-                  image: AssetImage(
-                    'images/microphone.png',
+            Container(
+              height: 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isUnderlined
+                    ? Colors.blue
+                    : Theme.of(context).scaffoldBackgroundColor,
+              ),
+              child: IconButton(
+                  icon: Image(
+                    width: 20,
+                    image: AssetImage(
+                      isRecording
+                          ? 'images/record.gif'
+                          : 'images/microphone.png',
+                    ),
+                    color: Theme.of(context).primaryColor,
                   ),
                   color: Theme.of(context).primaryColor,
-                ),
-                color: Theme.of(context).primaryColor,
-                onPressed: () {}),
+                  onPressed: () {
+                    setState(() {
+                      isRecording = !isRecording;
+                    });
+                  }),
+            ),
           ],
         ),
       ),
