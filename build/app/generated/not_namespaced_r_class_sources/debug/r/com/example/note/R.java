@@ -137,10 +137,10 @@ public final class R {
     public static final int ttcIndex=0x7f01000b;
   }
   public static final class color {
-    public static final int notification_action_color_filter=0x7f020000;
-    public static final int notification_icon_bg_color=0x7f020001;
-    public static final int ripple_material_light=0x7f020002;
-    public static final int secondary_text_default_material_light=0x7f020003;
+    public static final int androidx_core_ripple_material_light=0x7f020000;
+    public static final int androidx_core_secondary_text_default_material_light=0x7f020001;
+    public static final int notification_action_color_filter=0x7f020002;
+    public static final int notification_icon_bg_color=0x7f020003;
   }
   public static final class dimen {
     public static final int compat_button_inset_horizontal_material=0x7f030000;
@@ -864,5 +864,8 @@ public final class R {
      * @attr name android:offset
      */
     public static final int GradientColorItem_android_offset=1;
+  }
+  public static final class xml {
+    public static final int flutter_share_file_paths=0x7f0c0000;
   }
 }

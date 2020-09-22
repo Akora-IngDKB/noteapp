@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:note/models/Note.dart';
+import 'package:share/share.dart';
 
 class Options extends StatelessWidget {
   final Note note;
 
   Options({this.note});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +16,9 @@ class Options extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 3.5,
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        border: Border.all(color: Theme.of(context).disabledColor),
+        border: Border.all(
+          color: Theme.of(context).disabledColor,
+        ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -26,25 +30,48 @@ class Options extends StatelessWidget {
             width: 50,
             margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Theme.of(context).unselectedWidgetColor,
               borderRadius: BorderRadius.circular(30),
             ),
           ),
           SizedBox(height: 10),
-          Padding(
-            padding: EdgeInsets.only(left: 20, top: 10),
-            child: Row(
-              children: [
-                Container(
-                  height: 30,
-                  width: 30,
-                ),
-                SizedBox(width: 15),
-                Text(
-                  'Share',
-                  style: TextStyle(),
-                ),
-              ],
+          GestureDetector(
+            onTap: () {
+              share(context, note);
+              Navigator.pop(context);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).unselectedWidgetColor,
+                      border: Border.all(
+                        width: 2,
+                        color: Theme.of(context).disabledColor,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.share,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 30),
+                  Text(
+                    'Share',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -60,14 +87,31 @@ class Options extends StatelessWidget {
               padding: EdgeInsets.only(left: 20, top: 10),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.blue,
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).unselectedWidgetColor,
+                      border: Border.all(
+                        color: Theme.of(context).disabledColor,
+                        width: 2,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.content_copy,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: 30),
                   Text(
                     'Copy To ClipBoard',
-                    style: TextStyle(),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -77,4 +121,11 @@ class Options extends StatelessWidget {
       ),
     );
   }
+}
+
+void share(BuildContext context, Note note) {
+//  final RenderBox box = context.findRenderObject();
+  String text = '${note.title}\n ${note.text}';
+  Share.share(text, subject: note.text);
+  //  sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
 }
