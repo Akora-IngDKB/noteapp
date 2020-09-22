@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:note/widgets/BottomSheet.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/screens/Workspace.dart';
 
@@ -15,6 +17,14 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () {
+        showBottomSheet(
+            context: context,
+            backgroundColor: Colors.transparent,
+            builder: (context) {
+              return Options(note: widget.note);
+            });
+      },
       onTap: () {
         Navigator.push(
           context,
