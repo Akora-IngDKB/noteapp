@@ -116,11 +116,26 @@ class _WorkSpaceState extends State<WorkSpace> {
               ),
               color: Theme.of(context).buttonColor,
               child: Text(
-                "SAVE",
+                "Save",
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                if (widget.existingNote != null) {
+                if (note.title.isEmpty || note.text.isEmpty) {
+                  return showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('You can\'t save an empty note'),
+                      actions: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Go back'),
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (widget.existingNote != null) {
                   provider.update(widget.existingNote, note);
                 } else {
                   provider.addNote(note);
@@ -141,7 +156,7 @@ class _WorkSpaceState extends State<WorkSpace> {
               controller: TextEditingController(text: note.title),
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 25,
+                  fontSize: 23,
                   fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -156,7 +171,10 @@ class _WorkSpaceState extends State<WorkSpace> {
                 note.text = val;
               },
               controller: TextEditingController(text: note.text),
-              style: TextStyle(color: Theme.of(context).primaryColor),
+              style: TextStyle(
+                fontSize: 17,
+                color: Theme.of(context).primaryColor,
+              ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
