@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:note/models/Note.dart';
@@ -19,8 +17,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Provider.of<NotesProvider>(context);
   }
 
-  // ignore: unused_field
-  TextEditingController _controller = TextEditingController();
   Note note;
   bool isActive = true;
 
@@ -54,34 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ? SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      // Padding(
-                      //   padding: EdgeInsets.only(left: 20, right: 30, top: 20),
-                      //   child: TextField(
-                      //     controller: _controller,
-                      //     autofocus: true,
-                      //     onChanged: (val) {},
-                      //     decoration: InputDecoration(
-                      //       disabledBorder: InputBorder.none,
-                      //       filled: true,
-                      //       fillColor: Theme.of(context).unselectedWidgetColor,
-                      //       contentPadding: EdgeInsets.only(left: 20),
-                      //       prefixIcon: Padding(
-                      //         padding: EdgeInsets.only(left: 10),
-                      //         child: Icon(Icons.search,
-                      //             color: Colors.grey, size: 15),
-                      //       ),
-                      //       border: OutlineInputBorder(
-                      //         borderSide: BorderSide.none,
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
-                      //       hintText: 'Search notes',
-                      //       hintStyle: TextStyle(
-                      //         fontSize: 17,
-                      //         color: Colors.grey,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       Padding(
                         padding: EdgeInsets.only(left: 20, right: 30, top: 20),
                         child: Row(
@@ -97,14 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                               child: Container(
                                 height: 45,
-                                margin: EdgeInsets.only(right: 3),
-                                width: MediaQuery.of(context).size.width - 120,
+                                width: double.infinity,
                                 padding: EdgeInsets.only(left: 20),
                                 decoration: BoxDecoration(
-                                  color:
-                                      Theme.of(context).unselectedWidgetColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                                    color:
+                                        Theme.of(context).unselectedWidgetColor,
+                                    borderRadius: BorderRadius.circular(7)),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -137,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 decoration: BoxDecoration(
                                   color:
                                       Theme.of(context).unselectedWidgetColor,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(7),
                                 ),
                                 child: Center(
                                   child: Icon(
@@ -152,11 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       SizedBox(height: 10),
                       Padding(
-                        padding: EdgeInsets.all(30),
+                        padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                         child: StaggeredGridView.countBuilder(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 15,
-                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: provider.notes.length,
@@ -167,10 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             );
                           },
                           staggeredTileBuilder: (int index) {
-                            return StaggeredTile.count(
-                              isActive ? 1 : 2,
-                              index.isOdd ? 0.9 : 1.2,
-                            );
+                            return StaggeredTile.fit(isActive ? 1 : 2);
                           },
                         ),
                       ),
@@ -202,7 +165,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-// void _search(){
-//   return
-// }
