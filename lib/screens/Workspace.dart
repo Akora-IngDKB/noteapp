@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/home.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class WorkSpace extends StatefulWidget {
   final Note existingNote;
@@ -21,18 +20,11 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isUnderlined = false;
   bool isRecording = false;
   Note note = Note();
-
-  List colors = [
-    Colors.white,
-    Colors.green,
-    Colors.yellow,
-  ];
-  int index = 0;
-
-  Random random = Random();
+  stt.SpeechToText _speech;
 
   @override
   void initState() {
+    _speech = stt.SpeechToText();
     if (widget.existingNote != null) note = widget.existingNote;
     super.initState();
   }
@@ -66,6 +58,26 @@ class _WorkSpaceState extends State<WorkSpace> {
     );
   }
 
+  void record() async {
+    if (!isRecording) {
+      bool available = await _speech.initialize(
+        onError: (val) => print('Sorry : $val'),
+        onStatus: (val) => print('onstatus : $val'),
+      );
+      if (available) {
+        setState(() => isRecording = true);
+        _speech.listen(onResult: (val) {
+          note.text = val.recognizedWords;
+        });
+      }
+    } else {
+      _speech.stop();
+      setState(() {
+        isRecording = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,11 +104,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 image: AssetImage('images/color-wheel.png'),
               ),
               color: Colors.black,
-              onPressed: () {
-                setState(() {
-                  index = random.nextInt(3);
-                });
-              },
+              onPressed: () {},
             ),
           ),
           Tooltip(
@@ -153,15 +161,20 @@ class _WorkSpaceState extends State<WorkSpace> {
               onChanged: (val) {
                 note.title = val;
               },
-              controller: TextEditingController(text: note.title),
+              controller: TextEditingController(text: note.title.trim()),
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w600),
+                color: Theme.of(context).primaryColor,
+                fontSize: 23,
+                fontWeight: FontWeight.w600,
+              ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 hintText: 'Title',
-                hintStyle: TextStyle(fontSize: 20, color: Colors.grey),
+                hintStyle: TextStyle(
+                  fontSize: 19,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.normal,
+                ),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
               ),
@@ -170,20 +183,22 @@ class _WorkSpaceState extends State<WorkSpace> {
               onChanged: (val) {
                 note.text = val;
               },
-              controller: TextEditingController(text: note.text),
+              controller: TextEditingController(text: note.text.trim()),
               style: TextStyle(
                 fontSize: 17,
+                // decoration: isUnderlined
+                //     ? TextDecoration.underline
+                //     : TextDecoration.none,
+                // fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                 color: Theme.of(context).primaryColor,
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
-                // filled: true,
-                // fillColor: colors[index],
                 contentPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 hintText: 'Type here',
                 hintStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: 19,
                   color: Colors.grey,
                 ),
                 border: InputBorder.none,
@@ -293,9 +308,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                   ),
                   color: Theme.of(context).primaryColor,
                   onPressed: () {
-                    setState(() {
-                      isRecording = !isRecording;
-                    });
+                    record();
                   }),
             ),
           ],

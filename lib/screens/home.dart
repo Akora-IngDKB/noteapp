@@ -47,17 +47,15 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
           child: provider.notes.length > 0
-              ? Container(
-                  height: 500,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding:
-                              EdgeInsets.only(left: 20, right: 30, top: 20),
-                          child: Row(
-                            children: [
-                              GestureDetector(
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 30, top: 20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -68,8 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 },
                                 child: Container(
                                   height: 45,
-                                  width: double.infinity,
-                                  padding: EdgeInsets.only(left: 20),
+                                  padding: EdgeInsets.only(left: 20, right: 30),
                                   decoration: BoxDecoration(
                                     color:
                                         Theme.of(context).unselectedWidgetColor,
@@ -94,54 +91,55 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                               ),
-                              Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isActive = !isActive;
-                                  });
-                                },
-                                child: Container(
-                                  height: 45,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        Theme.of(context).unselectedWidgetColor,
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      isActive ? Icons.menu : Icons.grid_on,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                            ),
+                            SizedBox(width: 10),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isActive = !isActive;
+                                });
+                              },
+                              child: Container(
+                                height: 45,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).unselectedWidgetColor,
+                                  borderRadius: BorderRadius.circular(7),
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    isActive ? Icons.menu : Icons.grid_on,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                        // SizedBox(height: 10),
-                        // Padding(
-                        //   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                        //   child: StaggeredGridView.countBuilder(
-                        //     crossAxisCount: 2,
-                        //     mainAxisSpacing: 12,
-                        //     crossAxisSpacing: 12,
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     itemCount: provider.notes.length,
-                        //     itemBuilder: (context, index) {
-                        //       return HomeNoteItem(
-                        //         note: provider.notes[index],
-                        //         index: index,
-                        //       );
-                        //     },
-                        //     staggeredTileBuilder: (int index) {
-                        //       return StaggeredTile.fit(isActive ? 1 : 2);
-                        //     },
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                        child: StaggeredGridView.countBuilder(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: provider.notes.length,
+                          itemBuilder: (context, index) {
+                            return HomeNoteItem(
+                              note: provider.notes[index],
+                              index: index,
+                            );
+                          },
+                          staggeredTileBuilder: (int index) {
+                            return StaggeredTile.fit(isActive ? 1 : 2);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : Center(

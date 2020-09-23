@@ -7,27 +7,18 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  double endSize = 2.0;
-
   @override
   void initState() {
     super.initState();
+
     Future.delayed(
-      Duration(seconds: 2),
+      Duration(seconds: 10),
       () {
-        setState(() => endSize = 1000);
-        Future.delayed(
-          Duration(milliseconds: 300),
-          () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return MyHomePage();
-                },
-              ),
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return MyHomePage();
+          }),
         );
       },
     );
@@ -39,33 +30,40 @@ class _SplashState extends State<Splash> {
       color: Colors.transparent,
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        alignment: Alignment.center,
-        child: TweenAnimationBuilder(
-          curve: Curves.ease,
-          tween: Tween<double>(begin: 2, end: endSize),
-          duration: Duration(milliseconds: 200),
-          builder: (context, size, child) {
-            return Transform.scale(scale: size, child: child);
-          },
-          child: Text.rich(
-            TextSpan(
-              text: "My",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text.rich(
+              TextSpan(
+                text: "My",
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    color: Theme.of(context).primaryColor),
+                children: [
+                  TextSpan(
+                    text: "Note",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).primaryColor),
+                  ),
+                ],
+              ),
               style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  color: Theme.of(context).primaryColor),
-              children: [
-                TextSpan(
-                  text: "Note",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Theme.of(context).primaryColor),
-                ),
-              ],
+                color: Theme.of(context).primaryColor,
+              ),
             ),
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
+          ],
         ),
       ),
     );
