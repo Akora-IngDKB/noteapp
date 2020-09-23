@@ -131,7 +131,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemBuilder: (context, index) {
                             return HomeNoteItem(
                               note: provider.notes[index],
-                              index: index,
                             );
                           },
                           staggeredTileBuilder: (int index) {

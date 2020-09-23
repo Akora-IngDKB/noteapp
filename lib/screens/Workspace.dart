@@ -205,6 +205,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 enabledBorder: InputBorder.none,
               ),
             ),
+            SizedBox(height: 50),
           ],
         ),
       ),
