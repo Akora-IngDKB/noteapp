@@ -46,6 +46,9 @@ class _WorkSpaceState extends State<WorkSpace> {
             child: Text('No'),
           ),
           FlatButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
             onPressed: () {
               provider.deleteNote(note);
               Navigator.pushReplacement(context,
@@ -96,17 +99,17 @@ class _WorkSpaceState extends State<WorkSpace> {
           },
         ),
         actions: <Widget>[
-          Tooltip(
-            message: 'Pick color',
-            child: IconButton(
-              icon: Image(
-                width: 20,
-                image: AssetImage('images/color-wheel.png'),
-              ),
-              color: Colors.black,
-              onPressed: () {},
-            ),
-          ),
+          // Tooltip(
+          //   message: 'Pick color',
+          //   child: IconButton(
+          //     icon: Image(
+          //       width: 20,
+          //       image: AssetImage('images/color-wheel.png'),
+          //     ),
+          //     color: Colors.black,
+          //     onPressed: () {},
+          //   ),
+          // ),
           Tooltip(
             message: 'Delete',
             child: IconButton(
@@ -128,17 +131,20 @@ class _WorkSpaceState extends State<WorkSpace> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                if (note.title.isEmpty || note.text.isEmpty) {
+                if (note.text.isEmpty) {
                   return showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: Text('You can\'t save an empty note'),
                       actions: [
                         FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('Go back'),
+                          child: Text('Cancel'),
                         ),
                       ],
                     ),
@@ -209,111 +215,111 @@ class _WorkSpaceState extends State<WorkSpace> {
           ],
         ),
       ),
-      bottomSheet: Container(
-        padding: EdgeInsets.only(bottom: 10, top: 5),
-        height: 60,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isBold
-                    ? Colors.blue
-                    : Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: IconButton(
-                  icon: Image(
-                    width: 15,
-                    image: AssetImage(
-                      'images/bold.png',
-                    ),
-                    color:
-                        isBold ? Colors.white : Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isBold = !isBold;
-                    });
-                  }),
+      //  bottomSheet: buildFormatButtons(context),
+    );
+  }
+
+  Widget buildFormatButtons(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(bottom: 10, top: 5),
+      height: 60,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isBold
+                  ? Colors.blue
+                  : Theme.of(context).scaffoldBackgroundColor,
             ),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isItalic
-                    ? Colors.blue
-                    : Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: IconButton(
-                  icon: Image(
-                    width: 15,
-                    image: AssetImage(
-                      'images/italic.png',
-                    ),
-                    color: isItalic
-                        ? Colors.white
-                        : Theme.of(context).primaryColor,
+            child: IconButton(
+                icon: Image(
+                  width: 15,
+                  image: AssetImage(
+                    'images/bold.png',
+                  ),
+                  color: isBold ? Colors.white : Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    isBold = !isBold;
+                  });
+                }),
+          ),
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isItalic
+                  ? Colors.blue
+                  : Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: IconButton(
+                icon: Image(
+                  width: 15,
+                  image: AssetImage(
+                    'images/italic.png',
+                  ),
+                  color:
+                      isItalic ? Colors.white : Theme.of(context).primaryColor,
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  setState(() {
+                    isItalic = !isItalic;
+                  });
+                }),
+          ),
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isUnderlined
+                  ? Colors.blue
+                  : Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: IconButton(
+                icon: Image(
+                  width: 15,
+                  image: AssetImage(
+                    'images/underline.png',
+                  ),
+                  color: isUnderlined
+                      ? Colors.white
+                      : Theme.of(context).primaryColor,
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  setState(() {
+                    isUnderlined = !isUnderlined;
+                  });
+                }),
+          ),
+          Container(
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isUnderlined
+                  ? Colors.blue
+                  : Theme.of(context).scaffoldBackgroundColor,
+            ),
+            child: IconButton(
+                icon: Image(
+                  width: 20,
+                  image: AssetImage(
+                    isRecording ? 'images/record.gif' : 'images/microphone.png',
                   ),
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    setState(() {
-                      isItalic = !isItalic;
-                    });
-                  }),
-            ),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isUnderlined
-                    ? Colors.blue
-                    : Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: IconButton(
-                  icon: Image(
-                    width: 15,
-                    image: AssetImage(
-                      'images/underline.png',
-                    ),
-                    color: isUnderlined
-                        ? Colors.white
-                        : Theme.of(context).primaryColor,
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    setState(() {
-                      isUnderlined = !isUnderlined;
-                    });
-                  }),
-            ),
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: isUnderlined
-                    ? Colors.blue
-                    : Theme.of(context).scaffoldBackgroundColor,
-              ),
-              child: IconButton(
-                  icon: Image(
-                    width: 20,
-                    image: AssetImage(
-                      isRecording
-                          ? 'images/record.gif'
-                          : 'images/microphone.png',
-                    ),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    record();
-                  }),
-            ),
-          ],
-        ),
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  record();
+                }),
+          ),
+        ],
       ),
     );
   }
