@@ -8,7 +8,6 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class WorkSpace extends StatefulWidget {
   final Note existingNote;
-
   WorkSpace({this.existingNote});
 
   @override
@@ -27,7 +26,7 @@ class _WorkSpaceState extends State<WorkSpace> {
   @override
   void initState() {
     notesBox = Hive.box<String>('notes');
-    //  _speech = stt.SpeechToText();
+    _speech = stt.SpeechToText();
     if (widget.existingNote != null) note = widget.existingNote;
     super.initState();
   }
