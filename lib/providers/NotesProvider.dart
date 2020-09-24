@@ -5,6 +5,20 @@ class NotesProvider extends BaseProvider {
   List<Note> _notesList = [];
 
   List<Note> get notes => _notesList;
+  Note note = Note();
+
+  // set notes(value) {
+  //   _notesList = value;
+  // }
+
+  // void search(String value) {
+  //   notes = notes.where((notes) {
+  //     var notetitle = note.title.toLowerCase();
+  //     print(notetitle);
+  //     return notetitle.contains(value);
+  //   }).toList();
+  //   notifyListeners();
+  // }
 
   void addNote(Note n) {
     _notesList.add(n);
