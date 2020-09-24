@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/home.dart';
@@ -21,10 +22,12 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isRecording = false;
   Note note = Note();
   stt.SpeechToText _speech;
+  Box<String> notesBox;
 
   @override
   void initState() {
-    _speech = stt.SpeechToText();
+    notesBox = Hive.box<String>('notes');
+    //  _speech = stt.SpeechToText();
     if (widget.existingNote != null) note = widget.existingNote;
     super.initState();
   }
@@ -150,8 +153,10 @@ class _WorkSpaceState extends State<WorkSpace> {
                     ),
                   );
                 } else if (widget.existingNote != null) {
+                  notesBox.put(note.title, note.text);
                   provider.update(widget.existingNote, note);
                 } else {
+                  notesBox.put(note.title, note.text);
                   provider.addNote(note);
                 }
                 Navigator.pop(context);
