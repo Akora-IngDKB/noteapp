@@ -1,10 +1,19 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:note/providers/BaseProvider.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Splash.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Directory directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  await Hive.openBox<String>('notes');
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -19,7 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MyNote',
-        theme: ThemeData.dark().copyWith(
+        darkTheme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
           primaryColor: Colors.white,
           buttonColor: Color.fromRGBO(112, 237, 238, 5),
@@ -27,14 +36,14 @@ class MyApp extends StatelessWidget {
           disabledColor: Color.fromRGBO(182, 182, 182, 50),
           brightness: Brightness.light,
         ),
-        // theme: ThemeData(
-        //   brightness: Brightness.light,
-        //   scaffoldBackgroundColor: Colors.white,
-        //   primaryColor: Colors.black,
-        //   unselectedWidgetColor: Color.fromRGBO(235, 235, 235, 6),
-        //   buttonColor: Colors.lightBlueAccent,
-        //   disabledColor: Colors.grey.shade300,
-        // ),
+        theme: ThemeData(
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: Colors.black,
+          unselectedWidgetColor: Color.fromRGBO(235, 235, 235, 6),
+          buttonColor: Colors.lightBlueAccent,
+          disabledColor: Colors.grey.shade300,
+        ),
         home: Splash(),
       ),
     );
