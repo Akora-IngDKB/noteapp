@@ -219,6 +219,22 @@ class _WorkSpaceState extends State<WorkSpace> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          isRecording = !isRecording;
+        },
+        child: isRecording
+            ? Image.asset(
+                'images/record.gif',
+                width: 25,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              )
+            : Image.asset(
+                'images/microphone.png',
+                width: 25,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+      ),
       //  bottomSheet: buildFormatButtons(context),
     );
   }
