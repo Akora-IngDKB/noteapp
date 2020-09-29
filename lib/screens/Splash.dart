@@ -12,9 +12,9 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     Future.delayed(
-      Duration(seconds: 10),
+      Duration(milliseconds: 1500),
       () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) {
             return MyHomePage();

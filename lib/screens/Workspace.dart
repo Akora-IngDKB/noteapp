@@ -20,6 +20,7 @@ class _WorkSpaceState extends State<WorkSpace> {
   bool isUnderlined = false;
   bool isRecording = false;
   Note note = Note();
+  bool isChanged = false;
   stt.SpeechToText _speech;
   Box<String> notesBox;
 
@@ -29,6 +30,42 @@ class _WorkSpaceState extends State<WorkSpace> {
     _speech = stt.SpeechToText();
     if (widget.existingNote != null) note = widget.existingNote;
     super.initState();
+  }
+
+  prompt(bool isSaved) {
+    if (isSaved == null) return;
+    {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Exit without saving?'),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No'),
+              ),
+              FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ),
+                  );
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   NotesProvider get provider {
@@ -97,21 +134,10 @@ class _WorkSpaceState extends State<WorkSpace> {
             size: 20,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            isChanged ? prompt(isChanged) : Navigator.pop(context);
           },
         ),
         actions: <Widget>[
-          // Tooltip(
-          //   message: 'Pick color',
-          //   child: IconButton(
-          //     icon: Image(
-          //       width: 20,
-          //       image: AssetImage('images/color-wheel.png'),
-          //     ),
-          //     color: Colors.black,
-          //     onPressed: () {},
-          //   ),
-          // ),
           Tooltip(
             message: 'Delete',
             child: IconButton(
@@ -169,6 +195,7 @@ class _WorkSpaceState extends State<WorkSpace> {
           children: <Widget>[
             TextField(
               onChanged: (val) {
+                isChanged = !isChanged;
                 note.title = val;
               },
               controller: TextEditingController(text: note.title.trim()),
@@ -192,6 +219,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             TextField(
               onChanged: (val) {
                 note.text = val;
+                isChanged = !isChanged;
               },
               controller: TextEditingController(text: note.text.trim()),
               style: TextStyle(
