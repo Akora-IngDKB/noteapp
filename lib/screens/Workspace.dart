@@ -33,8 +33,9 @@ class _WorkSpaceState extends State<WorkSpace> {
   }
 
   prompt(bool isSaved) {
-    if (isSaved == null) return;
-    {
+    if (isSaved == null)
+      return;
+    else
       return showDialog(
         context: context,
         builder: (context) {
@@ -65,7 +66,6 @@ class _WorkSpaceState extends State<WorkSpace> {
           );
         },
       );
-    }
   }
 
   NotesProvider get provider {
@@ -134,7 +134,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             size: 20,
           ),
           onPressed: () {
-            isChanged ? prompt(isChanged) : Navigator.pop(context);
+            Navigator.pop(context);
           },
         ),
         actions: <Widget>[
@@ -263,7 +263,6 @@ class _WorkSpaceState extends State<WorkSpace> {
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
       ),
-      //  bottomSheet: buildFormatButtons(context),
     );
   }
 
