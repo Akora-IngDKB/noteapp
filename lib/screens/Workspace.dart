@@ -72,33 +72,61 @@ class _WorkSpaceState extends State<WorkSpace> {
     return Provider.of<NotesProvider>(context, listen: false);
   }
 
-  _showDialog() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Do you want to delete this note?'),
-        actions: [
-          FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('No'),
-          ),
-          FlatButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            onPressed: () {
-              provider.deleteNote(note);
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()));
-            },
-            child: Text('Delete'),
-          ),
-        ],
-      ),
-    );
+  Future<bool> _showDialog() async {
+    return await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Do you want to delete this note?'),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context, false);
+                },
+                child: Text('No'),
+              ),
+              FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                onPressed: () {
+                  provider.deleteNote(note);
+                  Navigator.pop(context, true);
+                },
+                child: Text('Delete'),
+              ),
+            ],
+          );
+        });
   }
+
+  // _showDialog(BuildContext ctx) {
+  //   return showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: Text('Do you want to delete this note?'),
+  //       actions: [
+  //         FlatButton(
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //           },
+  //           child: Text('No'),
+  //         ),
+  //         FlatButton(
+  //           shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //           ),
+  //           onPressed: () {
+  //             provider.deleteNote(note);
+  //             Navigator.pop(context);
+  //             Navigator.pop(ctx);
+  //           },
+  //           child: Text('Delete'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   void record() async {
     if (!isRecording) {
@@ -141,10 +169,14 @@ class _WorkSpaceState extends State<WorkSpace> {
           Tooltip(
             message: 'Delete',
             child: IconButton(
+                disabledColor: Colors.grey,
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).primaryColor,
-                onPressed: () {
-                  _showDialog();
+                onPressed: () async {
+                  if (note.title.isNotEmpty || note.text.isNotEmpty) {
+                    final delete = await _showDialog();
+                    if (delete ?? false) Navigator.pop(context);
+                  }
                 }),
           ),
           Padding(
@@ -224,10 +256,6 @@ class _WorkSpaceState extends State<WorkSpace> {
               controller: TextEditingController(text: note.text.trim()),
               style: TextStyle(
                 fontSize: 17,
-                // decoration: isUnderlined
-                //     ? TextDecoration.underline
-                //     : TextDecoration.none,
-                // fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
                 color: Theme.of(context).primaryColor,
               ),
               keyboardType: TextInputType.multiline,
