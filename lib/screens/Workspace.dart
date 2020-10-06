@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:note/models/Note.dart';
@@ -100,34 +101,6 @@ class _WorkSpaceState extends State<WorkSpace> {
         });
   }
 
-  // _showDialog(BuildContext ctx) {
-  //   return showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: Text('Do you want to delete this note?'),
-  //       actions: [
-  //         FlatButton(
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //           },
-  //           child: Text('No'),
-  //         ),
-  //         FlatButton(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //           ),
-  //           onPressed: () {
-  //             provider.deleteNote(note);
-  //             Navigator.pop(context);
-  //             Navigator.pop(ctx);
-  //           },
-  //           child: Text('Delete'),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   void record() async {
     if (!isRecording) {
       bool available = await _speech.initialize(
@@ -170,7 +143,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             message: 'Delete',
             child: IconButton(
                 disabledColor: Colors.grey,
-                icon: Icon(Icons.delete),
+                icon: Icon(CupertinoIcons.delete_solid),
                 color: Theme.of(context).primaryColor,
                 onPressed: () async {
                   if (note.title.isNotEmpty || note.text.isNotEmpty) {
@@ -185,7 +158,7 @@ class _WorkSpaceState extends State<WorkSpace> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              color: Theme.of(context).buttonColor,
+              color: Colors.blue,
               child: Text(
                 "Save",
                 style: TextStyle(color: Colors.white),
@@ -275,21 +248,23 @@ class _WorkSpaceState extends State<WorkSpace> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          isRecording = !isRecording;
-        },
-        child: isRecording
-            ? Image.asset(
-                'images/record.gif',
-                width: 25,
-                color: Theme.of(context).scaffoldBackgroundColor,
-              )
-            : Image.asset(
-                'images/microphone.png',
-                width: 25,
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
+      floatingActionButton: GestureDetector(
+        onTap: record,
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 1500),
+          height: 60,
+          width: 60,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+          ),
+          child: Image.asset(
+            isRecording ? 'images/record.gif' : 'images/microphone.png',
+            width: 10,
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+        ),
       ),
     );
   }
@@ -335,9 +310,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             child: IconButton(
                 icon: Image(
                   width: 15,
-                  image: AssetImage(
-                    'images/italic.png',
-                  ),
+                  image: AssetImage('images/italic.png'),
                   color:
                       isItalic ? Colors.white : Theme.of(context).primaryColor,
                 ),
@@ -359,9 +332,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             child: IconButton(
                 icon: Image(
                   width: 15,
-                  image: AssetImage(
-                    'images/underline.png',
-                  ),
+                  image: AssetImage('images/underline.png'),
                   color: isUnderlined
                       ? Colors.white
                       : Theme.of(context).primaryColor,
