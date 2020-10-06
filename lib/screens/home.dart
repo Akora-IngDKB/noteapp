@@ -36,19 +36,42 @@ class _MyHomePageState extends State<MyHomePage> {
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        title: Text(
-          'Notes',
+        title: Text.rich(
+          TextSpan(
+            text: "My",
+            style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w900,
+                color: Theme.of(context).primaryColor),
+            children: [
+              TextSpan(
+                text: "Note",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).primaryColor),
+              ),
+            ],
+          ),
           style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor),
+            color: Theme.of(context).primaryColor,
+          ),
         ),
+        //  Text(
+        //   'Notes',
+        //   style: TextStyle(
+        //       fontSize: 30,
+        //       fontWeight: FontWeight.bold,
+        //       color: Theme.of(context).primaryColor),
+        // ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
             child: Text(
               '${provider.notes.length} notes',
-              style: TextStyle(color: Theme.of(context).primaryColor),
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           )
         ],
@@ -155,12 +178,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
               : Center(
-                  child: Text(
-                    'No notes yet',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.grey,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'images/notes_icon.png',
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'No notes yet',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 )),
       floatingActionButton: FloatingActionButton(
