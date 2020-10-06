@@ -12,7 +12,7 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     Future.delayed(
-      Duration(seconds: 60),
+      Duration(seconds: 3),
       () {
         Navigator.pushReplacement(
           context,
@@ -37,15 +37,11 @@ class _SplashState extends State<Splash> {
               height: 100,
               width: 100,
               decoration: BoxDecoration(
-                color: Colors.blue,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
-                child: Icon(
-                  Icons.note,
-                  color: Colors.white,
-                  size: 50,
-                ),
+              child: Image.asset(
+                'images/notes_icon.png',
+                color: Theme.of(context).primaryColor,
               ),
             ),
             SizedBox(height: 20),
