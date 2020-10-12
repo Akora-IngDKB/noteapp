@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Search.dart';
@@ -15,18 +13,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  NotesProvider get provider {
-    return Provider.of<NotesProvider>(context);
-  }
-
   Note note;
   bool isActive = true;
-  Box<String> noteBox;
 
   @override
   void initState() {
-    noteBox = Hive.box<String>('notes');
     super.initState();
+  }
+
+  NotesProvider get provider {
+    return Provider.of<NotesProvider>(context);
   }
 
   @override
@@ -57,13 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Theme.of(context).primaryColor,
           ),
         ),
-        //  Text(
-        //   'Notes',
-        //   style: TextStyle(
-        //       fontSize: 30,
-        //       fontWeight: FontWeight.bold,
-        //       color: Theme.of(context).primaryColor),
-        // ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
@@ -153,25 +142,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                        child: ValueListenableBuilder(
-                            valueListenable: noteBox.listenable(),
-                            builder: (context, Box<String> notes, _) {
-                              return StaggeredGridView.countBuilder(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 12,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: provider.notes.length,
-                                itemBuilder: (context, index) {
-                                  return HomeNoteItem(
-                                    note: provider.notes[index],
-                                  );
-                                },
-                                staggeredTileBuilder: (int index) {
-                                  return StaggeredTile.fit(isActive ? 1 : 2);
-                                },
+                        child: StaggeredGridView.countBuilder(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 12,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: provider.notes.length,
+                            itemBuilder: (context, index) {
+                              return HomeNoteItem(
+                                note: provider.notes[index],
                               );
+                            },
+                            staggeredTileBuilder: (int index) {
+                              return StaggeredTile.fit(isActive ? 1 : 2);
                             }),
                       ),
                     ],
