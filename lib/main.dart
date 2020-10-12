@@ -1,17 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:note/providers/BaseProvider.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Splash.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:provider/provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Directory directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  await Hive.openBox<String>('notes');
   runApp(MyApp());
 }
 
@@ -20,10 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<BaseProvider>(
-            create: (context) => NotesProvider()),
-        ChangeNotifierProvider<NotesProvider>(
-            create: (context) => NotesProvider()),
+        ChangeNotifierProvider(create: (context) => NotesProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
