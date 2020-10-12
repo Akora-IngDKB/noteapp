@@ -23,11 +23,9 @@ class _WorkSpaceState extends State<WorkSpace> {
   Note note = Note();
   bool isChanged = false;
   stt.SpeechToText _speech;
-  Box<String> notesBox;
 
   @override
   void initState() {
-    notesBox = Hive.box<String>('notes');
     _speech = stt.SpeechToText();
     if (widget.existingNote != null) note = widget.existingNote;
     super.initState();
@@ -101,25 +99,25 @@ class _WorkSpaceState extends State<WorkSpace> {
         });
   }
 
-  void record() async {
-    if (!isRecording) {
-      bool available = await _speech.initialize(
-        onError: (val) => print('Sorry : $val'),
-        onStatus: (val) => print('onstatus : $val'),
-      );
-      if (available) {
-        setState(() => isRecording = true);
-        _speech.listen(onResult: (val) {
-          note.text = val.recognizedWords;
-        });
-      }
-    } else {
-      _speech.stop();
-      setState(() {
-        isRecording = false;
-      });
-    }
-  }
+  // void record() async {
+  //   if (!isRecording) {
+  //     bool available = await _speech.initialize(
+  //       onError: (val) => print('Sorry : $val'),
+  //       onStatus: (val) => print('onstatus : $val'),
+  //     );
+  //     if (available) {
+  //       setState(() => isRecording = true);
+  //       _speech.listen(onResult: (val) {
+  //         note.text = val.recognizedWords;
+  //       });
+  //     }
+  //   } else {
+  //     _speech.stop();
+  //     setState(() {
+  //       isRecording = false;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -183,10 +181,8 @@ class _WorkSpaceState extends State<WorkSpace> {
                     ),
                   );
                 } else if (widget.existingNote != null) {
-                  notesBox.put(note.title, note.text);
                   provider.update(widget.existingNote, note);
                 } else {
-                  notesBox.put(note.title, note.text);
                   provider.addNote(note);
                 }
                 Navigator.pop(context);
@@ -249,7 +245,7 @@ class _WorkSpaceState extends State<WorkSpace> {
         ),
       ),
       floatingActionButton: GestureDetector(
-        onTap: record,
+        onTap: () {},
         child: AnimatedContainer(
           duration: Duration(milliseconds: 1500),
           height: 60,
@@ -362,7 +358,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
-                  record();
+                  //  record();
                 }),
           ),
         ],
