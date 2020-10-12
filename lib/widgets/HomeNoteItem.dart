@@ -55,7 +55,7 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
             Text(
               widget.note.text,
               overflow: TextOverflow.ellipsis,
-              maxLines: 10,
+              maxLines: 13,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 height: 1.3,
