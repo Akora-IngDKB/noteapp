@@ -1,7 +1,6 @@
 name: note
 description: A new Flutter project.
 
-
 version: 1.0.0+1
 
 environment:
@@ -10,30 +9,25 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^0.1.2
-  provider: ^4.3.1
   flutter_staggered_grid_view: ^0.3.2
-  speech_to_text: ^2.5.0
-  share: ^0.6.5+1
   hive: ^1.4.4
   hive_flutter: ^0.3.1
   path_provider: ^1.6.18
+  permission_handler: ^5.0.1+1
+  provider: ^4.3.1
+  share: ^0.6.5+1
+  speech_to_text: ^2.5.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 flutter:
   uses-material-design: true
 
   assets:
-   - images/
-  
-
-
- 
+    - images/
   # example:
   # fonts:
   #   - family: Schyler
@@ -46,4 +40,3 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-
