@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:note/models/Note.dart';
@@ -181,18 +182,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).buttonColor,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return WorkSpace();
-            }),
-          );
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.edit),
-      ),
+          backgroundColor: Theme.of(context).buttonColor,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return WorkSpace();
+              }),
+            );
+          },
+          child: Icon(Icons.edit)),
     );
   }
 }
