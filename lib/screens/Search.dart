@@ -12,11 +12,11 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   NotesProvider get provider {
-    return Provider.of<NotesProvider>(context);
+    return Provider.of<NotesProvider>(context, listen: false);
   }
 
   final controller = TextEditingController();
-  List<Note> notes = [];
+
   List<Note> result = [];
 
   @override
@@ -44,10 +44,26 @@ class _SearchPageState extends State<SearchPage> {
                   EdgeInsets.only(left: 20, right: 30, top: 25, bottom: 20),
               child: TextField(
                 controller: controller,
-                onChanged: (value) {
-                  if (value.isEmpty) {
-                    result = notes;
-                  }
+                onChanged: (text) async {
+                  if (text.isNotEmpty)
+                    setState(() {
+                      result = provider.notes
+                          .where((n) =>
+                              n.text.toLowerCase().contains(text) ||
+                              n.title.toLowerCase().contains(text))
+                          .toList();
+                    });
+                  else
+                    result = [];
+                  print(result);
+                },
+                onSubmitted: (v) {
+                  setState(() {
+                    result = provider.notes
+                        .where((n) => n.text.contains(v) || n.title.contains(v))
+                        .toList();
+                  });
+                  print(result);
                 },
                 autofocus: true,
                 decoration: InputDecoration(
@@ -71,25 +87,46 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-              child: StaggeredGridView.countBuilder(
-                crossAxisCount: 2,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: provider.notes.length,
-                itemBuilder: (context, index) {
-                  return HomeNoteItem(
-                    note: provider.notes[index],
-                  );
-                },
-                staggeredTileBuilder: (int index) {
-                  return StaggeredTile.fit(1);
-                },
-              ),
-            ),
+            result.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 100),
+                        Image.asset(
+                          'images/notes_icon.png',
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'No notes yet',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                    child: StaggeredGridView.countBuilder(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: result.length,
+                      itemBuilder: (context, index) {
+                        return HomeNoteItem(
+                          note: result[index],
+                        );
+                      },
+                      staggeredTileBuilder: (int index) {
+                        return StaggeredTile.fit(1);
+                      },
+                    ),
+                  ),
           ],
         ),
       )),
