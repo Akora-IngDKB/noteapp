@@ -6,7 +6,7 @@ import 'package:note/screens/Workspace.dart';
 class HomeNoteItem extends StatefulWidget {
   final Note note;
 
-  const HomeNoteItem({@required this.note});
+  HomeNoteItem({@required this.note});
 
   @override
   _HomeNoteItemState createState() => _HomeNoteItemState();
