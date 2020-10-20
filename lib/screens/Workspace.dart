@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/home.dart';
@@ -99,25 +99,25 @@ class _WorkSpaceState extends State<WorkSpace> {
         });
   }
 
-  // void record() async {
-  //   if (!isRecording) {
-  //     bool available = await _speech.initialize(
-  //       onError: (val) => print('Sorry : $val'),
-  //       onStatus: (val) => print('onstatus : $val'),
-  //     );
-  //     if (available) {
-  //       setState(() => isRecording = true);
-  //       _speech.listen(onResult: (val) {
-  //         note.text = val.recognizedWords;
-  //       });
-  //     }
-  //   } else {
-  //     _speech.stop();
-  //     setState(() {
-  //       isRecording = false;
-  //     });
-  //   }
-  // }
+  void record() async {
+    if (!isRecording) {
+      bool available = await _speech.initialize(
+        onError: (val) => print('Sorry : $val'),
+        onStatus: (val) => print('onstatus : $val'),
+      );
+      if (available) {
+        setState(() => isRecording = true);
+        _speech.listen(onResult: (val) {
+          note.text = val.recognizedWords;
+        });
+      }
+    } else {
+      _speech.stop();
+      setState(() {
+        isRecording = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -358,7 +358,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
-                  //  record();
+                  record();
                 }),
           ),
         ],
