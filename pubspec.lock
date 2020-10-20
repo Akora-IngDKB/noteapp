@@ -43,20 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0-nullsafety.3"
-  convert:
-    dependency: transitive
-    description:
-      name: convert
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.1"
-  crypto:
-    dependency: transitive
-    description:
-      name: crypto
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.5"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -102,20 +88,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  hive:
+  get_it:
     dependency: "direct main"
     description:
-      name: hive
+      name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.4"
-  hive_flutter:
-    dependency: "direct main"
-    description:
-      name: hive_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
+    version: "5.0.1"
   intl:
     dependency: transitive
     description:
