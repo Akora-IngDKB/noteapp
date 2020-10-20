@@ -57,14 +57,6 @@ class _SearchPageState extends State<SearchPage> {
                     result = [];
                   print(result);
                 },
-                onSubmitted: (v) {
-                  setState(() {
-                    result = provider.notes
-                        .where((n) => n.text.contains(v) || n.title.contains(v))
-                        .toList();
-                  });
-                  print(result);
-                },
                 autofocus: true,
                 decoration: InputDecoration(
                   disabledBorder: InputBorder.none,
