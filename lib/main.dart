@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:note/providers/NotesProvider.dart';
 import 'package:note/screens/Splash.dart';
-
-import 'package:provider/provider.dart';
+import 'package:note/services/sl.dart';
 
 void main() async {
+  setupServiceLocator();
   runApp(MyApp());
 }
 
