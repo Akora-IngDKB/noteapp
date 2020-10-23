@@ -244,22 +244,12 @@ class _WorkSpaceState extends State<WorkSpace> {
           ],
         ),
       ),
-      floatingActionButton: GestureDetector(
-        onTap: () {},
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 1500),
-          height: 60,
-          width: 60,
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            shape: BoxShape.circle,
-          ),
-          child: Image.asset(
-            isRecording ? 'images/record.gif' : 'images/microphone.png',
-            width: 10,
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: record,
+        child: Image.asset(
+          isRecording ? 'images/record.gif' : 'images/microphone.png',
+          color: Colors.white,
+          width: 18,
         ),
       ),
     );
