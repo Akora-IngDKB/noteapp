@@ -14,7 +14,6 @@ class Options extends StatelessWidget {
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-        height: MediaQuery.of(context).size.height / 2.9,
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           border: Border.all(
