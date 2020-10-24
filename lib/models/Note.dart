@@ -1,16 +1,19 @@
 class Note {
   String title;
   String text;
+  DateTime date;
 
   Note({
     this.title = '',
     this.text = '',
+    this.date,
   });
 
   factory Note.fromJSON(Map<String, dynamic> json) {
     return new Note(
       title: json["title"],
       text: json["text"],
+      date: json["date"],
     );
   }
 
@@ -24,6 +27,7 @@ class Note {
     return {
       "title": title,
       "content": text,
+      "date": date,
     };
   }
 
