@@ -37,16 +37,18 @@ class _MyHomePageState extends State<MyHomePage> {
           TextSpan(
             text: "My",
             style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w900,
-                color: Theme.of(context).primaryColor),
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+              color: Theme.of(context).primaryColor,
+            ),
             children: [
               TextSpan(
                 text: "Note",
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Theme.of(context).primaryColor),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
