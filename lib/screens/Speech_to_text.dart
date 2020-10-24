@@ -17,10 +17,64 @@ class _SpeechScreenState extends State<SpeechScreen> {
     super.initState();
   }
 
+  prompt(bool isSaved) {
+    if (isSaved == null)
+      return;
+    else
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Exit without saving?'),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No'),
+              ),
+              FlatButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                onPressed: () {},
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
+      );
+  }
+
   void record() async {
     if (!isRecording) {
       bool available = await _speech.initialize(
-        onError: (val) => print('Sorry : $val'),
+        onError: (val) {
+          print('Sorry : $val');
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                    'You need internt connection for speech_to_text to work properly'),
+                actions: [
+                  FlatButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        isRecording = false;
+                      });
+                    },
+                    child: Text('Okay'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         onStatus: (val) => print('onstatus : $val'),
       );
       if (available) {
