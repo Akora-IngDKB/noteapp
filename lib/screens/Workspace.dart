@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:note/models/Note.dart';
 import 'package:note/providers/NotesProvider.dart';
+import 'package:note/screens/OCRScreen.dart';
 import 'package:note/screens/Speech_to_text.dart';
 import 'package:note/screens/home.dart';
 import 'package:provider/provider.dart';
@@ -129,6 +130,11 @@ class _WorkSpaceState extends State<WorkSpace> {
     return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
+          centerTitle: false,
+          // title: Text(
+          //   'Category',
+          //   style: TextStyle(color: Theme.of(context).primaryColor),
+          // ),
           elevation: 0,
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           leading: IconButton(
@@ -272,7 +278,12 @@ class _WorkSpaceState extends State<WorkSpace> {
                     width: 25,
                     color: Theme.of(context).primaryColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Ocr();
+                    }));
+                  },
                 ),
               ),
               Padding(
