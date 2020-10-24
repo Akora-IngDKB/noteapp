@@ -83,15 +83,17 @@ class _SearchPageState extends State<SearchPage> {
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: 100),
                         Image.asset(
-                          'images/notes_icon.png',
-                          color: Theme.of(context).primaryColor,
+                          'images/Search1.png',
+                          width: 100,
+                          //color: Theme.of(context).primaryColor,
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'No notes yet',
+                          'No results',
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.grey,
