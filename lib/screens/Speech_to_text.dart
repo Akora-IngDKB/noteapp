@@ -46,7 +46,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
       );
   }
 
-  void record() async {
+  Future<void> record() async {
     if (!isRecording) {
       bool available = await _speech.initialize(
         onError: (val) {
@@ -56,7 +56,8 @@ class _SpeechScreenState extends State<SpeechScreen> {
             builder: (context) {
               return AlertDialog(
                 title: Text(
-                    'You need internt connection for speech_to_text to work properly'),
+                  'Sorry you need an active internet connection for speech_to_text functionality',
+                ),
                 actions: [
                   FlatButton(
                     shape: RoundedRectangleBorder(
@@ -68,7 +69,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
                         isRecording = false;
                       });
                     },
-                    child: Text('Okay'),
+                    child: Text('Cancel'),
                   ),
                 ],
               );
@@ -166,9 +167,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
       ),
       floatingActionButton: FloatingActionButton(
           tooltip: 'Record',
-          onPressed: () {
-            record();
-          },
+          onPressed: record,
           child: isRecording
               ? Image.asset(
                   'images/record.gif',
