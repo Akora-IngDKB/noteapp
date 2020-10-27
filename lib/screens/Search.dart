@@ -47,11 +47,9 @@ class _SearchPageState extends State<SearchPage> {
                 onChanged: (text) async {
                   if (text.isNotEmpty)
                     setState(() {
-                      result = provider.notes
-                          .where((n) =>
-                              n.text.toLowerCase().contains(text) ||
-                              n.title.toLowerCase().contains(text))
-                          .toList();
+                      result = provider.notes.where(
+                        (n) => n.text.contains(text) || n.title.contains(text),
+                      );
                     });
                   else
                     result = [];
@@ -89,7 +87,6 @@ class _SearchPageState extends State<SearchPage> {
                         Image.asset(
                           'images/Search1.png',
                           width: 100,
-                          //color: Theme.of(context).primaryColor,
                         ),
                         SizedBox(height: 10),
                         Text(
