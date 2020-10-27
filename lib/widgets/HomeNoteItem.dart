@@ -44,7 +44,7 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              widget.note.title,
+              widget.note.title ?? '',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _HomeNoteItemState extends State<HomeNoteItem> {
             ),
             SizedBox(height: 10),
             Text(
-              widget.note.text,
+              widget.note.text ?? '',
               overflow: TextOverflow.ellipsis,
               maxLines: 13,
               style: TextStyle(
