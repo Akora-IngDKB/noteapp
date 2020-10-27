@@ -9,11 +9,13 @@ class Note {
     this.date,
   });
 
+  // Note copyWith({}){},
+
   factory Note.fromJSON(Map<String, dynamic> json) {
     return new Note(
       title: json["title"],
       text: json["text"],
-      date: json["date"],
+      date: DateTime.tryParse(json["date"]),
     );
   }
 
@@ -26,8 +28,8 @@ class Note {
   Map<String, dynamic> toJSON() {
     return {
       "title": title,
-      "content": text,
-      "date": date,
+      "text": text,
+      "date": date?.toString(),
     };
   }
 
