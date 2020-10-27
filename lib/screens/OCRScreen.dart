@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note/providers/NotesProvider.dart';
+import 'package:provider/provider.dart';
 
 class Ocr extends StatefulWidget {
   @override
@@ -6,6 +8,10 @@ class Ocr extends StatefulWidget {
 }
 
 class _OcrState extends State<Ocr> {
+  NotesProvider get provider {
+    return Provider.of<NotesProvider>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,26 +35,116 @@ class _OcrState extends State<Ocr> {
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 150),
-            Image.asset('images/Ocr.png', width: 100),
-            SizedBox(height: 50),
             Container(
-              margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 250,
-              height: 60,
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(20),
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: provider.extracted == null
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Your extracted text will appear here....',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    )
+                  : SingleChildScrollView(
+                      child: Text(
+                        provider.extracted,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 20,
+                bottom: 20,
+              ),
+              child: Text(
+                'Scan',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.help,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    'Scan images with your camera or pick from gallery \nand extract thetext from them',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 30),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.help,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  SizedBox(width: 20),
+                  Text(
+                    'Copy and paste the extracted text anywhere\nin your notes',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomSheet: Container(
+        height: 120,
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              height: 50,
               decoration: BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Take a photo',
+                    'Scan',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
@@ -65,12 +161,12 @@ class _OcrState extends State<Ocr> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20, bottom: 20),
-              width: 250,
-              height: 60,
+              margin: EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              height: 50,
               decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(50),
+                // color: Color.fromRGBO(235, 235, 250, 1).withOpacity(0.5),
+                color: Colors.black.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -78,13 +174,16 @@ class _OcrState extends State<Ocr> {
                   Text(
                     'Gallery',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
                   SizedBox(width: 10),
-                  Icon(Icons.image, color: Colors.white),
+                  Icon(
+                    Icons.image,
+                    color: Colors.black,
+                  ),
                 ],
               ),
             ),
