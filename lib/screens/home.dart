@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
             child: Text(
-              '${provider.notes.length} notes',
+              '${provider.notes?.length ?? 0} notes',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
               ),
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
-          child: provider.notes.length > 0
+          child: provider.notes?.length != null
               ? SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
