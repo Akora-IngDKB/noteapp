@@ -173,7 +173,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  if (note.text.isEmpty) {
+                  if (note.text.isEmpty || note.title.isEmpty) {
                     return showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -235,7 +235,7 @@ class _WorkSpaceState extends State<WorkSpace> {
                   isChanged = !isChanged;
                   note.date = DateTime.now();
                 },
-                controller: TextEditingController(text: note.text.trim()),
+                controller: TextEditingController(text: note.text),
                 style: TextStyle(
                   fontSize: 17,
                   color: Theme.of(context).primaryColor,
@@ -265,7 +265,7 @@ class _WorkSpaceState extends State<WorkSpace> {
             children: [
               Text(
                 note.date == null
-                    ? 'Created at ${now.day}-${now.month}-${now.year} , ${now.hour}:${now.minute} '
+                    ? 'Created at ${now.day}-${now.month}-${now.year} , ${now.hour}:${now.minute}'
                     : 'Last Edited : ${note.date.day}/${note.date.month}/${note.date.year}  ${note.date.hour}:${note.date.minute}',
                 style: TextStyle(color: Colors.grey),
               ),
