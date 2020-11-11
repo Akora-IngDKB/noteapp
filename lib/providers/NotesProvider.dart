@@ -8,11 +8,11 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:note/services/sl.dart';
 
 class NotesProvider extends BaseProvider {
-  NotesProvider() {
-    if (_notesList == null) readFromStorage();
-  }
+  // NotesProvider() {
+  //   if (_notesList == null) readFromStorage();
+  // }
 
-  final _storage = sl.get<FileContract>();
+//  final _storage = sl.get<FileContract>();
 
   List<Note> _notesList;
 
@@ -35,20 +35,20 @@ class NotesProvider extends BaseProvider {
   void addNote(Note n) {
     _notesList.add(n);
     notifyListeners();
-    saveToStorage();
+    //   saveToStorage();
   }
 
   void deleteNote(Note n) {
     _notesList.remove(n);
     notifyListeners();
-    saveToStorage();
+    //  saveToStorage();
   }
 
   void update(Note newNote, Note oldNote) {
     final index = _notesList.indexWhere((o) => o == oldNote);
     _notesList[index] = newNote;
     notifyListeners();
-    saveToStorage();
+    //  saveToStorage();
   }
 
   Future<void> record({BuildContext context, Function error}) async {
@@ -74,17 +74,17 @@ class NotesProvider extends BaseProvider {
     // notifyListeners();
   }
 
-  Future<bool> saveToStorage() async {
-    final list = Note.toJSONList(_notesList);
-    print(jsonEncode(list));
-    return _storage.writeFile(jsonEncode(list));
-  }
+  // Future<bool> saveToStorage() async {
+  //   final list = Note.toJSONList(_notesList);
+  //   print(jsonEncode(list));
+  //   return _storage.writeFile(jsonEncode(list));
+  // }
 
-  Future<void> readFromStorage() async {
-    final json = await _storage.readFile();
-    final list = jsonDecode(json).cast<Map<String, dynamic>>();
-    _notesList = Note.fromJSONList(list);
-    print(json);
-    notifyListeners();
-  }
+  // Future<void> readFromStorage() async {
+  //   final json = await _storage.readFile();
+  //   final list = jsonDecode(json).cast<Map<String, dynamic>>();
+  //   _notesList = Note.fromJSONList(list);
+  //   print(json);
+  //   notifyListeners();
+  // }
 }

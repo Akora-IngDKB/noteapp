@@ -1,9 +1,9 @@
-abstract class FileContract {
-  getPath();
+// abstract class FileContract {
+//   getPath();
 
-  createFile();
+//   createFile();
 
-  writeFile(String data);
+//   writeFile(String data);
 
-  readFile();
-}
+//   readFile();
+// }

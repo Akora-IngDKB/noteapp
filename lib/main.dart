@@ -5,7 +5,7 @@ import 'package:note/screens/Splash.dart';
 import 'package:note/services/sl.dart';
 
 void main() async {
-  setupServiceLocator();
+  //setupServiceLocator();
   runApp(MyApp());
 }
 
